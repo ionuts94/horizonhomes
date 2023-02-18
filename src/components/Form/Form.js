@@ -55,7 +55,13 @@ export function Form({ children }) {
 
         if (React.isValidElement(child) && child.props.type === 'submit') {
           return React.cloneElement(child, {
-            onClick: () => child.props.onClick(state)
+            onClick: () => {
+              if (typeof child.props.onClick !== 'function') {
+                console.warn("There is no onClick handler passed to this button: ", child.type.name);
+                return;
+              }
+              child.props.onClick(state)
+            }
           });
         }
 
@@ -97,7 +103,7 @@ export function Form({ children }) {
   }
 
   return (
-    <form>
+    <form onSubmit={(e) => e.preventDefault()}>
       {childrenWithProps}
     </form>
   )

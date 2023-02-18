@@ -12,3 +12,40 @@ export function FullWidthButton({ children, onClick = () => null, disabled, clas
     </button>
   )
 }
+
+export function SignInButton({ ...rest }) {
+  return (
+    <FullWidthButton {...rest}>
+      SIGN IN
+    </FullWidthButton>
+  )
+}
+
+export function SignUpButton({ ...rest }) {
+  return (
+    <FullWidthButton {...rest}>
+      SIGN UP
+    </FullWidthButton>
+  )
+}
+
+export function SignWithGoogleButton({ ...rest }) {
+  return (
+    <FullWidthButton
+      classNames='bg-red-600 hover:bg-red-700 active:bg-red-800 flex items-center justify-center'
+      {...rest}
+    >
+      CONTINUE WITH GOOGLE
+    </FullWidthButton>
+  )
+}
+
+export function ResetPasswordButton({ ...rest }) {
+  return (
+    <FullWidthButton
+      {...rest}
+    >
+      RESET PASSWORD
+    </FullWidthButton>
+  )
+}

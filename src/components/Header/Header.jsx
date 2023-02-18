@@ -1,5 +1,5 @@
 import React from 'react';
-import HorizonLogo from '../../assets/hh-logo.png'
+import HorizonLogo from 'assets/hh-logo.png'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 export function Header() {

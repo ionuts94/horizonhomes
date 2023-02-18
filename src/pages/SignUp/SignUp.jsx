@@ -2,8 +2,11 @@ import React from 'react';
 import SignInImage from 'assets/sign-in.avif';
 import { Link } from 'react-router-dom';
 import { SignUpButton, Form, SignWithGoogleButton } from 'components';
+import { useSignUp } from 'hooks/useSignUp';
 
 export function SignUp() {
+  const { signUp, signUpLoading } = useSignUp();
+
   return (
     <section>
       <h1 className='text-3xl text-center mt-6 font-bold'>Sign Up</h1>
@@ -41,7 +44,8 @@ export function SignUp() {
 
             <SignUpButton
               type='submit'
-              onClick={(data) => console.log(data)}
+              onClick={signUp}
+              isLoading={signUpLoading}
             />
 
             <div className='my-4 flex tems-center before:flex-1 before:border-t before:border-gray-300 after:flex-1 after:border-t after:border-gray-300'>

@@ -91,8 +91,6 @@ export function Form({ children }) {
   }, [children])
 
   function onInputChange(e) {
-    console.log('yey');
-    console.log(e);
     setState({
       ...state,
       [e.target.id]: {
@@ -103,7 +101,10 @@ export function Form({ children }) {
   }
 
   return (
-    <form onSubmit={(e) => e.preventDefault()}>
+    <form onSubmit={(e) => {
+      e.preventDefault();
+      return;
+    }}>
       {childrenWithProps}
     </form>
   )

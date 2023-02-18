@@ -1,6 +1,10 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Home, Profile, SignIn, SignUp, ForgotPassword, Offers } from "./pages";
+import { ToastContainer } from 'react-toastify';
 import { Header } from "./components";
+
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function App() {
   return (
@@ -14,6 +18,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="offers" element={<Offers />} />
       </Routes>
+      <ToastContainer />
     </Router>
   );
 }

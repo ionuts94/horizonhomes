@@ -1,3 +1,4 @@
+import { Spinner } from 'components/Spinner/Spinner'
 import React from 'react'
 
 export function FullWidthButton({ children, onClick = () => null, disabled, classNames, type }) {
@@ -21,31 +22,44 @@ export function SignInButton({ ...rest }) {
   )
 }
 
-export function SignUpButton({ ...rest }) {
+export function SignUpButton({ isLoading = false, ...rest }) {
   return (
-    <FullWidthButton {...rest}>
-      SIGN UP
+    <FullWidthButton
+      classNames='flex items-center justify-center'
+      {...rest}
+    >
+      {isLoading
+        ? <Spinner />
+        : 'SIGN UP'
+      }
     </FullWidthButton>
   )
 }
 
-export function SignWithGoogleButton({ ...rest }) {
+export function SignWithGoogleButton({ isLoading = false, ...rest }) {
   return (
     <FullWidthButton
       classNames='bg-red-600 hover:bg-red-700 active:bg-red-800 flex items-center justify-center'
       {...rest}
     >
-      CONTINUE WITH GOOGLE
+      {isLoading
+        ? <Spinner />
+        : 'CONTINUE WITH GOOGLE'
+      }
     </FullWidthButton>
   )
 }
 
-export function ResetPasswordButton({ ...rest }) {
+export function ResetPasswordButton({ isLoading = false, ...rest }) {
   return (
     <FullWidthButton
+      classNames='flex items-center justify-center'
       {...rest}
     >
-      RESET PASSWORD
+      {isLoading
+        ? <Spinner />
+        : 'RESET PASSWORD'
+      }
     </FullWidthButton>
   )
 }

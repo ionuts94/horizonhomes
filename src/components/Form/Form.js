@@ -29,7 +29,7 @@ export function Form({ children }) {
           }
 
           return (
-            <div className='relative mb-6'>
+            <div key={() => uuid()} className='relative mb-6'>
               {childElem}
               {state[id]?.showPassword
                 ? <AiFillEyeInvisible
@@ -49,7 +49,7 @@ export function Form({ children }) {
           const id = child.props.id;
           return React.cloneElement(child, {
             onChange: onInputChange,
-            value: state[id]?.value
+            value: state[id]?.value,
           });
         }
 

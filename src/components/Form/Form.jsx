@@ -113,22 +113,31 @@ export function Form({ children }) {
   return (
     <form onSubmit={(e) => {
       e.preventDefault();
-      return;
     }}>
       {childrenWithProps}
     </form>
   )
 }
 
-function Input({ type, id, onChange, value = '', placeholder }) {
+function Input({
+  type,
+  id,
+  onChange,
+  onCustomChange,
+  value = '',
+  placeholder,
+  className,
+  ...rest
+}) {
   return (
     <input
-      className='mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border-gray-300 rounded transition ease-in-out'
+      className={`mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border-gray-300 rounded transition ease-in-out ${className}`}
       type={type}
       id={id}
       value={value}
-      onChange={onChange}
+      onChange={onCustomChange || onChange}
       placeholder={placeholder}
+      {...rest}
     />
   )
 }

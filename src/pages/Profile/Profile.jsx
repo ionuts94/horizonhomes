@@ -1,14 +1,57 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form } from 'components';
 import { useNavigate } from 'react-router-dom';
-import { auth } from 'firebaseConfig';
+import { auth, db } from 'firebaseConfig';
+import { toast } from 'react-toastify';
+import { updateCurrentUser, updateProfile } from 'firebase/auth';
+import { doc, updateDoc } from 'firebase/firestore';
 
 export function Profile() {
   const navigate = useNavigate();
+  const [changeDetailState, setChangeDetailState] = useState('Edit');
+  const [inputsDisabled, setInputsDisabled] = useState(true);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
 
   function logOut() {
     auth.signOut();
     navigate('/');
+  }
+
+  useEffect(() => {
+    setName(auth.currentUser.displayName)
+    setEmail(auth.currentUser.email);
+  }, [])
+
+  function handleChangeDetails() {
+    if (changeDetailState === 'Edit') {
+      setChangeDetailState('Apply changes');
+      setInputsDisabled(false);
+    } else {
+      onSubmitChangeDetails();
+      setChangeDetailState('Edit')
+      setInputsDisabled(true);
+    }
+  }
+
+  async function onSubmitChangeDetails() {
+    try {
+      if (name) {
+        await updateProfile(auth.currentUser, {
+          displayName: name
+        });
+
+        const userDocRef = doc(db, 'users', auth.currentUser.uid);
+        await updateDoc(userDocRef, {
+          name: name,
+          email: email,
+        })
+
+        toast.success('Profile details updated', { autoClose: 1000, pauseOnHover: false });
+      }
+    } catch (err) {
+      toast.error('Could not update profile details');
+    }
   }
 
   return (
@@ -19,19 +62,29 @@ export function Profile() {
           <Form.Input
             type='text'
             id='name'
-            value={''}
+            value={name}
+            disabled={inputsDisabled}
+            className={`${inputsDisabled ? 'bg-gray-200' : ''}`}
+            onCustomChange={e => setName(e.target.value)}
           />
           <Form.Input
             type='email'
             id='email'
-            value={''}
+            value={email}
+            disabled={inputsDisabled}
+            className={`${inputsDisabled ? 'bg-gray-200' : ''}`}
+            onCustomChange={e => setEmail(e.target.value)}
           />
+
           <div className='flex justify-between whitespace-nowrap text-sm sm:text-lg mb-6'>
             <p className='flex items-center'>
               Do you want to change your details?
-              <span className='text-red-600 hover:text-red-700 tramsition ease-in-out duration-200 ml-1 cursor-pointer'>
-                Edit
-              </span>
+              <button className='text-red-600 hover:text-red-700 tramsition ease-in-out duration-200 ml-1 cursor-pointer'
+                onClick={handleChangeDetails}
+                type='submit'
+              >
+                {changeDetailState}
+              </button>
             </p>
             <p className='text-blue-600 hover:text-blue-800 transition duration-200 ease-in-out cursor-pointer'
               onClick={logOut}

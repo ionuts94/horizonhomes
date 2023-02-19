@@ -68,7 +68,7 @@ export function Form({ children }) {
         return child;
       });
     setChildrenWithProps(childrenWithPropsCopy);
-  }, [state])
+  }, [state, children])
 
   useEffect(function buildState() {
     const st = {};

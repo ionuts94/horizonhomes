@@ -1,5 +1,7 @@
-import { Spinner } from 'components/Spinner/Spinner'
 import React from 'react'
+import { useGoogleSignUp } from 'hooks'
+import { Spinner } from 'components/Spinner/Spinner'
+
 
 export function FullWidthButton({ children, onClick = () => null, disabled, classNames, type }) {
   return (
@@ -36,13 +38,16 @@ export function SignUpButton({ isLoading = false, ...rest }) {
   )
 }
 
-export function SignWithGoogleButton({ isLoading = false, ...rest }) {
+export function SignWithGoogleButton({ ...rest }) {
+  const { googleSignUp, googleAuthLoading } = useGoogleSignUp();
+
   return (
     <FullWidthButton
       classNames='bg-red-600 hover:bg-red-700 active:bg-red-800 flex items-center justify-center'
       {...rest}
+      onClick={googleSignUp}
     >
-      {isLoading
+      {googleAuthLoading
         ? <Spinner />
         : 'CONTINUE WITH GOOGLE'
       }

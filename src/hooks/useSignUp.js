@@ -21,44 +21,17 @@ export function useSignUp() {
 
     if (!nameIsValid) {
       errors = true;
-      toast.error('Please insert full name. Name should contain two words', {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      toast.error('Please insert full name. Name should contain two words');
     }
 
     if (!emailIsValid) {
       errors = true;
-      toast.error('Email does not have a valid form of abc@def.gh', {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      toast.error('Email does not have a valid form of abc@def.gh');
     }
 
     if (!passwordIsValid) {
       errors = true;
-      toast.error('Password needs to be at least 6 characters long', {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      toast.error('Password needs to be at least 6 characters long');
     }
 
     if (errors) return;
@@ -74,29 +47,11 @@ export function useSignUp() {
         email: email.value,
         created: serverTimestamp()
       });
-      toast.success('Account registered successfully', {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      toast.success('Account registered successfully');
       navigate('/')
     } catch (err) {
       if (err) {
-        toast.error(err.message, {
-          position: "top-center",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
+        toast.error(err.message);
       }
     } finally {
       setSignUpLoading(false);

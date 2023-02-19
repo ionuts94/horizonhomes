@@ -2,7 +2,7 @@ import React from 'react';
 import SignInImage from 'assets/sign-in.avif';
 import { Link } from 'react-router-dom';
 import { SignUpButton, Form, SignWithGoogleButton } from 'components';
-import { useSignUp } from 'hooks/useSignUp';
+import { useSignUp } from 'hooks';
 
 export function SignUp() {
   const { signUp, signUpLoading } = useSignUp();

@@ -18,7 +18,16 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="offers" element={<Offers />} />
       </Routes>
-      <ToastContainer />
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        closeOnClick={true}
+        pauseOnHover={true}
+        draggable={true}
+        progress={undefined}
+        theme="dark"
+      />
     </Router>
   );
 }

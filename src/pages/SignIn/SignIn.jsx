@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SignInImage from 'assets/sign-in.avif';
-import { SignUpButton, Form, SignWithGoogleButton } from 'components';
+import { Form, SignWithGoogleButton, SignInButton } from 'components';
 
 export function SignIn() {
   return (
@@ -35,7 +35,7 @@ export function SignIn() {
               </p>
             </div>
 
-            <SignUpButton
+            <SignInButton
               type='submit'
               onClick={(data) => console.log(data)}
             />

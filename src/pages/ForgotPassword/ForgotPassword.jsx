@@ -2,10 +2,12 @@ import React from 'react';
 import SignInImage from 'assets/sign-in.avif';
 import { FcGoogle } from 'react-icons/fc'
 import { Link } from 'react-router-dom';
-import { FullWidthButton, Form } from 'components';
-import { ResetPasswordButton } from 'components/Buttons/FullWidthButton';
+import { FullWidthButton, Form, ResetPasswordButton, SignWithGoogleButton } from 'components';
+import { useForgotPassword } from 'hooks/useForgotPassword';
 
 export function ForgotPassword() {
+  const { forgotPassword, forgotPasswordLoading } = useForgotPassword();
+
   return (
     <section>
       <h1 className='text-3xl text-center mt-6 font-bold'>Forgot password</h1>
@@ -30,18 +32,15 @@ export function ForgotPassword() {
 
             <ResetPasswordButton
               type='submit'
+              onClick={forgotPassword}
+              isLoading={forgotPasswordLoading}
             />
 
             <div className='my-4 flex tems-center before:flex-1 before:border-t before:border-gray-300 after:flex-1 after:border-t after:border-gray-300'>
               <p className='text-center font-semibold mx-4'>OR</p>
             </div>
 
-            <FullWidthButton
-              classNames='bg-red-600 hover:bg-red-700 active:bg-red-800 flex items-center justify-center'
-            >
-              <FcGoogle className='text-2xl bg-white rounded-full mr-2' />
-              CONTINUE WITH GOOGLE
-            </FullWidthButton>
+            <SignWithGoogleButton />
           </Form>
         </div>
       </div>

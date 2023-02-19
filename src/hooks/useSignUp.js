@@ -38,7 +38,9 @@ export function useSignUp() {
 
     setSignUpLoading(true);
     try {
-      const user = await createUserWithEmailAndPassword(auth, email.value, password.value);
+      const user = await createUserWithEmailAndPassword(
+        auth, email.value, password.value
+      );
       await updateProfile(auth.currentUser, {
         displayName: name.value
       });
@@ -47,7 +49,9 @@ export function useSignUp() {
         email: email.value,
         created: serverTimestamp()
       });
-      toast.success('Account registered successfully');
+      toast.success('Account registered successfully',
+        { pauseOnHover: false, autoClose: 1000 }
+      );
       navigate('/')
     } catch (err) {
       if (err) {

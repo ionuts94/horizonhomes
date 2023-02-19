@@ -81,7 +81,7 @@ export function Form({ children }) {
         if (React.isValidElement(child) && child.type === Form.Input) {
           const id = child.props.id || uuid();
           st[id] = {
-            value: ''
+            value: child.props.value
           };
           return React.cloneElement(child, {
             id: id

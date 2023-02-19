@@ -1,9 +1,8 @@
 import React from 'react';
 import SignInImage from 'assets/sign-in.avif';
-import { FcGoogle } from 'react-icons/fc'
 import { Link } from 'react-router-dom';
-import { FullWidthButton, Form, ResetPasswordButton, SignWithGoogleButton } from 'components';
-import { useForgotPassword } from 'hooks/useForgotPassword';
+import { Form, ResetPasswordButton, SignWithGoogleButton } from 'components';
+import { useForgotPassword } from 'hooks';
 
 export function ForgotPassword() {
   const { forgotPassword, forgotPasswordLoading } = useForgotPassword();

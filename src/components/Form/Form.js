@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
 import { v4 as uuid } from 'uuid';
 
 export function Form({ children }) {
   const [state, setState] = useState({})
   const [childrenWithProps, setChildrenWithProps] = useState([]);
+  const formStateRef = useRef();
 
   useEffect(function injectChildrenProps() {
     const childrenWithPropsCopy = React.Children
@@ -60,6 +61,7 @@ export function Form({ children }) {
                 console.warn("There is no onClick handler passed to this button: ", child.type.name);
                 return;
               }
+              formStateRef.current = { ...state };
               child.props.onClick(state)
             }
           });
@@ -67,6 +69,7 @@ export function Form({ children }) {
 
         return child;
       });
+
     setChildrenWithProps(childrenWithPropsCopy);
   }, [state, children])
 
@@ -91,6 +94,7 @@ export function Form({ children }) {
   }, [children])
 
   function onInputChange(e) {
+    formStateRef.current = null;
     setState({
       ...state,
       [e.target.id]: {
@@ -99,6 +103,12 @@ export function Form({ children }) {
       }
     })
   }
+
+  useEffect(function saveStateFormOnSubmit() {
+    if (formStateRef.current) {
+      setState(formStateRef.current);
+    }
+  }, [formStateRef.current, state])
 
   return (
     <form onSubmit={(e) => {

@@ -16,10 +16,16 @@ export function FullWidthButton({ children, onClick = () => null, disabled, clas
   )
 }
 
-export function SignInButton({ ...rest }) {
+export function SignInButton({ isLoading = false, ...rest }) {
   return (
-    <FullWidthButton {...rest}>
-      SIGN IN
+    <FullWidthButton
+      classNames='flex items-center justify-center'
+      {...rest}
+    >
+      {isLoading
+        ? <Spinner />
+        : 'SIGN IN'
+      }
     </FullWidthButton>
   )
 }

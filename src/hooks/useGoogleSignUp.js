@@ -1,10 +1,10 @@
 
 import { useState } from 'react';
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore';
-import { db } from 'firebaseConfig';
+import { auth, db } from 'firebaseConfig';
 
 export function useGoogleSignUp() {
   const navigate = useNavigate();
@@ -13,7 +13,6 @@ export function useGoogleSignUp() {
   async function googleSignUp() {
     setGoogleAuthLoading(true);
     try {
-      const auth = getAuth();
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
 

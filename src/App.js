@@ -18,6 +18,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="offers" element={<Offers />} />
       </Routes>
+
       <ToastContainer
         position="top-center"
         autoClose={5000}

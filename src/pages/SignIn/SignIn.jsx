@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SignInImage from 'assets/sign-in.avif';
 import { Form, SignWithGoogleButton, SignInButton } from 'components';
+import { useSignInWithEmailAndPassword } from 'hooks';
 
 export function SignIn() {
+  const { signIn, signInLoading } = useSignInWithEmailAndPassword();
+
   return (
     <section>
       <h1 className='text-3xl text-center mt-6 font-bold'>Sign In</h1>
@@ -37,7 +40,8 @@ export function SignIn() {
 
             <SignInButton
               type='submit'
-              onClick={(data) => console.log(data)}
+              onClick={signIn}
+              isLoading={signInLoading}
             />
 
             <div className='my-4 flex tems-center before:flex-1 before:border-t before:border-gray-300 after:flex-1 after:border-t after:border-gray-300'>

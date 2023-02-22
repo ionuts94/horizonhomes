@@ -1,13 +1,15 @@
 import React from 'react';
-import HorizonLogo from 'assets/hh-logo.png'
-import { useLocation, useNavigate } from 'react-router-dom'
+import HorizonLogo from 'assets/hh-logo.png';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useAuthState } from 'hooks';
 
 export function Header() {
   const location = useLocation();
   const navigate = useNavigate();
+  const { loggedIn } = useAuthState();
 
-  function pathMatchRoute(route) {
-    return route === location.pathname
+  function pathMatchRoute(routes) {
+    return routes.includes(location.pathname);
   }
 
   function handleListItemClick(e) {
@@ -27,20 +29,23 @@ export function Header() {
             <li
               onClick={handleListItemClick}
               data-route="/"
-              className={`cursor-pointer py-3 text-sm font-semibold border-b-[3px] ${pathMatchRoute('/') ? 'text-black border-b-red-500' : 'text-gray-400 border-b-transparent'}`}>
+              className={`cursor-pointer py-3 text-sm font-semibold border-b-[3px] ${pathMatchRoute(['/']) ? 'text-black border-b-red-500' : 'text-gray-400 border-b-transparent'}`}>
               Home
             </li>
             <li
               onClick={handleListItemClick}
               data-route="/offers"
-              className={`cursor-pointer py-3 text-sm font-semibold border-b-[3px] ${pathMatchRoute('/offers') ? 'text-black border-b-red-500' : 'text-gray-400 border-b-transparent'}`}>
+              className={`cursor-pointer py-3 text-sm font-semibold border-b-[3px] ${pathMatchRoute(['/offers']) ? 'text-black border-b-red-500' : 'text-gray-400 border-b-transparent'}`}>
               Offers
             </li>
             <li
               onClick={handleListItemClick}
-              data-route="/sign-in"
-              className={`cursor-pointer py-3 text-sm font-semibold border-b-[3px] ${pathMatchRoute('/sign-in') ? 'text-black border-b-red-500' : 'text-gray-400 border-b-transparent'}`}>
-              Sign In
+              data-route="/profile"
+              className={`cursor-pointer py-3 text-sm font-semibold border-b-[3px] ${pathMatchRoute(['/sign-in', '/sign-up', '/profile', '/forget-password']) ? 'text-black border-b-red-500' : 'text-gray-400 border-b-transparent'}`}>
+              {loggedIn
+                ? 'Profile'
+                : 'Sign In'
+              }
             </li>
           </ul>
         </div>

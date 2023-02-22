@@ -18,7 +18,7 @@ export function Header() {
   }
 
   return (
-    <div className="bg-white border-b shadow-sm sticky top-0 z-50 h-14">
+    <div className="bg-white border-b shadow-sm sticky top-0 z-40 h-14">
       <header className="flex justify-between items-center px-3 max-w-6xl mx-auto">
         <div>
           <img className="h-12 cursor-pointer" src={HorizonLogo} alt="logo" />

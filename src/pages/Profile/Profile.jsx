@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Form } from 'components';
-import { useNavigate } from 'react-router-dom';
+import { Form, FullWidthButton } from 'components';
+import { Link, useNavigate } from 'react-router-dom';
 import { auth, db } from 'firebaseConfig';
 import { toast } from 'react-toastify';
-import { updateCurrentUser, updateProfile } from 'firebase/auth';
+import { updateProfile } from 'firebase/auth';
 import { doc, updateDoc } from 'firebase/firestore';
+import { FcHome } from 'react-icons/fc';
 
 export function Profile() {
   const navigate = useNavigate();
@@ -94,6 +95,14 @@ export function Profile() {
           </div>
 
         </Form>
+
+        <FullWidthButton>
+          <Link className='flex justify-center items-center gap-2'
+            to='/create-listing'>
+            <FcHome className='font-medium text-3xl rounded-full border-2 bg-red-400' />
+            Sell or rent your home
+          </Link>
+        </FullWidthButton>
       </div>
     </section>
   )

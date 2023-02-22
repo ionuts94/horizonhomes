@@ -74,3 +74,17 @@ export function ResetPasswordButton({ isLoading = false, ...rest }) {
     </FullWidthButton>
   )
 }
+
+export function ListingFormButton({ isLoading = false, children, selected, ...rest }) {
+  return (
+    <FullWidthButton
+      classNames={`${selected ? 'bg-slate-600 text-white hover:bg-slate-800 active:bg-slate-900' : 'bg-white !text-black hover:bg-gray-100 active:bg-gray-200'} px-7 py-3 font-medium text-sm uppercase shadow-md w-full focus:shadow-lg active:shadow-lg`}
+      {...rest}
+    >
+      {isLoading
+        ? <Spinner />
+        : children
+      }
+    </FullWidthButton>
+  )
+}

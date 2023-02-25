@@ -120,6 +120,7 @@ export function Form({ children }) {
 }
 
 function Input({
+  as,
   type,
   id,
   onChange,
@@ -127,10 +128,13 @@ function Input({
   value = '',
   placeholder,
   className,
+  children,
   ...rest
 }) {
+  const Component = as || 'input';
+
   return (
-    <input
+    <Component
       className={`mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border-gray-300 rounded transition ease-in-out ${className}`}
       type={type}
       id={id}
@@ -138,8 +142,31 @@ function Input({
       onChange={onCustomChange || onChange}
       placeholder={placeholder}
       {...rest}
-    />
+    >
+      {children}
+    </Component>
+  )
+}
+
+function Label({
+  as,
+  className,
+  children,
+  labelFor = '',
+  ...rest
+}) {
+  const Component = as || 'p';
+
+  return (
+    <Component
+      className={`text-lg mt-6 font-semibold ${className}`}
+      htmlFor={labelFor}
+      {...rest}
+    >
+      {children}
+    </Component>
   )
 }
 
 Form.Input = Input;
+Form.Label = Label;

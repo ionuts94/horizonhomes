@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Form, PageWrapper, ListingFormButton } from 'components';
+import { Form, PageWrapper, ListingFormButton, FullWidthButton } from 'components';
 import React from 'react';
 
 export function CreateListing() {
@@ -9,7 +9,12 @@ export function CreateListing() {
     bedrooms: 1,
     bathrooms: 1,
     parking: true,
-    furnished: false
+    furnished: false,
+    address: '',
+    description: '',
+    offer: true,
+    price: 0,
+    discountedPrice: 0,
   });
 
   function onChange(e) { console.log(e) }
@@ -22,9 +27,9 @@ export function CreateListing() {
         </h1>
 
         <Form>
-          <p className='text-lg mt-6 font-semibold'>
-            Sell / Rent?
-          </p>
+          <Form.Label>
+            Sell / Rent
+          </Form.Label>
 
           <div className='flex justify-between gap-5'>
             <ListingFormButton
@@ -46,14 +51,15 @@ export function CreateListing() {
             </ListingFormButton>
           </div>
 
-          <p className='text-lg mt-6 font-semibold'>
+          <Form.Label>
             Name
-          </p>
+          </Form.Label>
 
           <Form.Input
             className=''
-            onChange={onChange}
+            onCustomChange={onChange}
             type='text'
+            id='name'
             value={formData.name}
             placeholder='Name'
             minLength="5"
@@ -62,12 +68,15 @@ export function CreateListing() {
 
           <div className='flex gap-[20px] mb-6'>
             <div className=''>
-              <p className='text-lg font-semibold'>Beds</p>
+              <Form.Label className='mt-0'>
+                Beds
+              </Form.Label>
+
               <Form.Input
                 type='number'
                 id='bedrooms'
                 value={formData.bedrooms}
-                onChange={onChange}
+                onCustomChange={onChange}
                 min='1'
                 max='12'
                 required
@@ -75,12 +84,15 @@ export function CreateListing() {
             </div>
 
             <div className=''>
-              <p className='text-lg font-semibold'>Baths</p>
+              <Form.Label className='mt-0'>
+                Baths
+              </Form.Label>
+
               <Form.Input
                 type='number'
                 id='bathrooms'
                 value={formData.bathrooms}
-                onChange={onChange}
+                onCustomChange={onChange}
                 min='1'
                 max='12'
                 required
@@ -88,9 +100,9 @@ export function CreateListing() {
             </div>
           </div>
 
-          <p className='text-lg mt-6 font-semibold'>
+          <Form.Label>
             Parking spot
-          </p>
+          </Form.Label>
 
           <div className='flex justify-between gap-5'>
             <ListingFormButton
@@ -112,9 +124,9 @@ export function CreateListing() {
             </ListingFormButton>
           </div>
 
-          <p className='text-lg mt-6 font-semibold'>
+          <Form.Label>
             Furnished
-          </p>
+          </Form.Label>
 
           <div className='flex justify-between gap-5'>
             <ListingFormButton
@@ -136,6 +148,128 @@ export function CreateListing() {
             </ListingFormButton>
           </div>
 
+          <Form.Label>
+            Address
+          </Form.Label>
+
+          <Form.Input
+            required
+            as='textarea'
+            id='address'
+            type='text'
+            placeholder='Address'
+            value={formData.address}
+            onCustomChange={onChange}
+          />
+
+          <Form.Label className='mt-0'>
+            Description
+          </Form.Label>
+
+          <Form.Input
+            required
+            as='textarea'
+            id='description'
+            type='text'
+            onCustomChange={onChange}
+            value={formData.description}
+            placeholder='Description'
+          />
+
+          <Form.Label className='mt-0'>
+            Offer
+          </Form.Label>
+
+          <div className='flex justify-between gap-5 mb-6'>
+            <ListingFormButton
+              id='offer'
+              value={true}
+              onClick={onChange}
+              selected={formData.offer}
+            >
+              Yes
+            </ListingFormButton>
+
+            <ListingFormButton
+              id='offer'
+              value={true}
+              onClick={onChange}
+              selected={!formData.offer}
+            >
+              No
+            </ListingFormButton>
+          </div>
+
+          <div className='block gap-[20px] mb-6 w-full'>
+            <Form.Label className='mt-0'>
+              Regular price
+            </Form.Label>
+            <div className='flex items-center gap-4'>
+              <Form.Input
+                required
+                min='50'
+                max='400000'
+                id='price'
+                type='number'
+                onCustomChange={onChange}
+                value={formData.price}
+                className='w-full mb-0 text-center'
+              />
+
+              <p className='text-md w-full whitespace-nowrap'>
+                {formData.type === 'rent' && '$ / Month'}
+              </p>
+            </div>
+          </div>
+
+          {formData.offer && (
+            <div className='block gap-[20px] mb-6 w-full'>
+              <Form.Label className='mt-0'>
+                Discounted price
+              </Form.Label>
+
+              <div className='flex items-center gap-4'>
+                <Form.Input
+                  required={formData.offer}
+                  min='50'
+                  max='400000'
+                  id='discountedPrice'
+                  type='number'
+                  onCustomChange={onChange}
+                  value={formData.discountedPrice}
+                  className='w-full mb-0 text-center'
+                />
+
+                <p className='text-md w-full whitespace-nowrap'>
+                  {formData.type === 'rent' && '$ / Month'}
+                </p>
+              </div>
+            </div>
+          )}
+
+          <div className='mb-6'>
+            <Form.Label className='mt-0'>
+              Pictures
+            </Form.Label>
+
+            <p className='text-gray-600'>
+              The first image will be the cover (max 6)
+            </p>
+
+            <Form.Input
+              required
+              multiple
+              type='file'
+              id='images'
+              accept='.jpg,.png,.jpeg'
+              onCustomChange={onChange}
+              className='px-3 py-1.5 text-gray-700  border border-gray-300 rounded'
+            />
+          </div>
+
+          <FullWidthButton className='mb-8'>
+            Create Listing
+          </FullWidthButton>
         </Form>
       </main>
     </PageWrapper>

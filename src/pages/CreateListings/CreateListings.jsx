@@ -3,6 +3,8 @@ import { Form, PageWrapper, ListingFormButton, FullWidthButton } from 'component
 import React from 'react';
 
 export function CreateListing() {
+  const [geolocationEnabled, setGeolocationEnabled] = useState(true);
+
   const [formData, setFormData] = useState({
     type: 'rent',
     name: '',
@@ -15,9 +17,34 @@ export function CreateListing() {
     offer: true,
     price: 0,
     discountedPrice: 0,
+    latitude: 0,
+    longitude: 0
   });
 
-  function onChange(e) { console.log(e) }
+  function onChange(e) {
+    let boolean = e.target.value === 'true'
+      ? true
+      : e.target.value === 'false'
+        ? false
+        : null;
+
+    if (e.target.files) {
+      setFormData({
+        ...formData,
+        images: e.target.files
+      })
+      return;
+    }
+
+    setFormData({
+      ...formData,
+      [e.target.id]: boolean ?? e.target.value
+    })
+  }
+
+  function onSubmit() {
+
+  }
 
   return (
     <PageWrapper>
@@ -140,7 +167,7 @@ export function CreateListing() {
 
             <ListingFormButton
               id='furnished'
-              value={true}
+              value={false}
               onClick={onChange}
               selected={!formData.furnished}
             >
@@ -161,6 +188,44 @@ export function CreateListing() {
             value={formData.address}
             onCustomChange={onChange}
           />
+
+          {geolocationEnabled && (
+            <div className='flex gap-5 mb-6'>
+              <div className=''>
+                <Form.Label className='mt-0'>
+                  Latitude
+                </Form.Label>
+
+                <Form.Input
+                  className='mb-0'
+                  type='number'
+                  id='latitude'
+                  value={formData.latitude}
+                  onCustomChange={onChange}
+                  required
+                  min='-90'
+                  max='90'
+                />
+              </div>
+
+              <div className=''>
+                <Form.Label className='mt-0'>
+                  Longitude
+                </Form.Label>
+
+                <Form.Input
+                  className='mb-0'
+                  type='number'
+                  id='longitude'
+                  value={formData.longitude}
+                  onCustomChange={onChange}
+                  required
+                  min='-180'
+                  max='180'
+                />
+              </div>
+            </div>
+          )}
 
           <Form.Label className='mt-0'>
             Description
@@ -204,6 +269,7 @@ export function CreateListing() {
             <Form.Label className='mt-0'>
               Regular price
             </Form.Label>
+
             <div className='flex items-center gap-4'>
               <Form.Input
                 required
@@ -267,7 +333,10 @@ export function CreateListing() {
             />
           </div>
 
-          <FullWidthButton className='mb-8'>
+          <FullWidthButton
+            className='mb-8'
+            onClick={onSubmit}
+          >
             Create Listing
           </FullWidthButton>
         </Form>

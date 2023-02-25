@@ -3,13 +3,14 @@ import { useGoogleSignUp } from 'hooks'
 import { Spinner } from 'components/Spinner/Spinner'
 
 
-export function FullWidthButton({ children, onClick = () => null, disabled, className, type }) {
+export function FullWidthButton({ children, onClick = () => null, disabled, className, type, ...rest }) {
   return (
     <button
       className={`w-full bg-blue-600 text-white px-7 py-3 text-sm font-medium uppercase rounded shadow-md hover:bg-blue-700 transition duration-150 ease-in-out hover:shadow-lg active:bg-blue-800 ${className}`}
       type={type || 'button'}
       onClick={onClick}
       disabled={disabled}
+      {...rest}
     >
       {children}
     </button>

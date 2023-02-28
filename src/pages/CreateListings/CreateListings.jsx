@@ -319,7 +319,7 @@ export function CreateListing() {
             </Form.Label>
 
             <p className='text-gray-600'>
-              The first image will be the cover (max 6)
+              The first image will be the cover(max 6)
             </p>
 
             <Form.Input

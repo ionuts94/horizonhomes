@@ -4,7 +4,6 @@ import { useSubmitListing } from 'hooks';
 import React from 'react';
 
 export function CreateListing() {
-  const [geolocationEnabled, setGeolocationEnabled] = useState(true);
   const { submitListing, submitLoading } = useSubmitListing();
 
   const [formData, setFormData] = useState({
@@ -20,10 +19,14 @@ export function CreateListing() {
     price: 0,
     discountedPrice: 0,
     latitude: 0,
-    longitude: 0
+    longitude: 0,
+    images: [],
+    geolocationEnabled: true
   });
 
   function onChange(e) {
+    console.log(e);
+
     let boolean = e.target.value === 'true'
       ? true
       : e.target.value === 'false'
@@ -195,7 +198,7 @@ export function CreateListing() {
             onCustomChange={onChange}
           />
 
-          {geolocationEnabled && (
+          {formData.geolocationEnabled && (
             <div className='flex gap-5 mb-6'>
               <div className=''>
                 <Form.Label className='mt-0'>
@@ -263,7 +266,7 @@ export function CreateListing() {
 
             <ListingFormButton
               id='offer'
-              value={true}
+              value={false}
               onClick={onChange}
               selected={!formData.offer}
             >
@@ -335,8 +338,17 @@ export function CreateListing() {
               id='images'
               accept='.jpg,.png,.jpeg'
               onCustomChange={onChange}
+              onChange={onChange}
               className='px-3 py-1.5 text-gray-700  border border-gray-300 rounded'
             />
+
+            <input required
+              multiple
+              type='file'
+              id='images'
+              accept='.jpg,.png,.jpeg'
+              onChange={onChange}
+              className='px-3 py-1.5 text-gray-700  border border-gray-300 rounded' />
           </div>
 
           <FullWidthButton

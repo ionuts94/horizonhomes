@@ -1,9 +1,11 @@
 import { useState } from 'react';
-import { Form, PageWrapper, ListingFormButton, FullWidthButton } from 'components';
+import { Form, PageWrapper, ListingFormButton, FullWidthButton, SquareSpinner } from 'components';
+import { useSubmitListing } from 'hooks';
 import React from 'react';
 
 export function CreateListing() {
   const [geolocationEnabled, setGeolocationEnabled] = useState(true);
+  const { submitListing, submitLoading } = useSubmitListing();
 
   const [formData, setFormData] = useState({
     type: 'rent',
@@ -43,7 +45,11 @@ export function CreateListing() {
   }
 
   function onSubmit() {
+    submitListing(formData)
+  }
 
+  if (submitLoading) {
+    return <SquareSpinner />
   }
 
   return (

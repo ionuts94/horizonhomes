@@ -4,3 +4,4 @@ export { Form } from './Form/Form';
 export { Spinner, SquareSpinner } from './Spinner/Spinner';
 export { PrivateRoute } from './PrivateRoute/PrivateRoute';
 export { PageWrapper } from './PageWrapper/PageWrapper';
+export { ListingItem } from './ListingItem/ListingItem';

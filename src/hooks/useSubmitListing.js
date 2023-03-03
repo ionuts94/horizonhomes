@@ -68,6 +68,7 @@ export function useSubmitListing() {
 
     const formDataCopy = {
       ...data,
+      owner: auth.user.uid,
       imgUrls,
       geolocation,
       created: serverTimestamp()

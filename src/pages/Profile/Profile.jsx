@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Form, FullWidthButton } from 'components';
+import { Form, FullWidthButton, ListingItem } from 'components';
 import { Link, useNavigate } from 'react-router-dom';
 import { auth, db } from 'firebaseConfig';
 import { toast } from 'react-toastify';
 import { updateProfile } from 'firebase/auth';
 import { doc, updateDoc } from 'firebase/firestore';
 import { FcHome } from 'react-icons/fc';
+import { useFetchListings } from 'hooks';
 
 export function Profile() {
   const navigate = useNavigate();
+  const { listings, fetchLoading } = useFetchListings();
+
   const [changeDetailState, setChangeDetailState] = useState('Edit');
   const [inputsDisabled, setInputsDisabled] = useState(true);
   const [name, setName] = useState('');
@@ -104,6 +107,23 @@ export function Profile() {
           </Link>
         </FullWidthButton>
       </div>
+
+      {listings.length > 0 &&
+        <div className='max-w-6xl px-3 mt-6 mx-auto'>
+          <h2 className='text-2xl text-center font-semibold'>
+            My Listings
+          </h2>
+
+          <ul>
+            {listings.map(listing => (
+              <ListingItem
+                key={listing.id}
+                id={listing.id}
+                listing={listing.data} />
+            ))}
+          </ul>
+        </div>
+      }
     </section>
   )
 }

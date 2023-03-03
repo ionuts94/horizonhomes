@@ -4,7 +4,7 @@ import { db } from 'firebaseConfig';
 import { useAuthState } from './useAuthState';
 import { toast } from 'react-toastify';
 
-export function useFetchListings() {
+export function useFetchListings(shouldUpdateListings) {
   const auth = useAuthState();
   const [fetchLoading, setFetchLoading] = useState();
   const [listings, setListings] = useState([]);
@@ -40,7 +40,7 @@ export function useFetchListings() {
     }
 
     fetchUserListings();
-  }, [auth?.user?.uid])
+  }, [auth?.user?.uid, shouldUpdateListings])
 
 
   return { fetchLoading, listings }

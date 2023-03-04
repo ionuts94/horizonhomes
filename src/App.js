@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Home, Profile, SignIn, SignUp, ForgotPassword, Offers, CreateListing } from "./pages";
-import { Header, PrivateRoute } from "./components";
+import { Home, Profile, SignIn, SignUp, ForgotPassword, Offers, CreateListing, EditListing } from "./pages";
+import { Header, PrivateRoute, OwnerRoute } from "./components";
 import { ToastContainer } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -19,6 +19,10 @@ function App() {
 
         <Route path="/create-listing" element={<PrivateRoute />}>
           <Route path="/create-listing" element={<CreateListing />} />
+        </Route>
+
+        <Route path="/edit-listing/:listingId" element={<OwnerRoute />}>
+          <Route path="/edit-listing/:listingId" element={<EditListing />} />
         </Route>
 
         <Route path="/sign-in" element={<SignIn />} />

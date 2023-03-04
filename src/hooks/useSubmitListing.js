@@ -15,7 +15,9 @@ import {
 import {
   addDoc,
   serverTimestamp,
-  collection
+  collection,
+  updateDoc,
+  doc
 } from 'firebase/firestore';
 
 const GOOGLE_API_KEY = process.env.REACT_APP_GEOCODING_API_KEY;
@@ -26,7 +28,7 @@ export function useSubmitListing() {
   const navigate = useNavigate();
   const [submitLoading, setSubmitLoading] = useState(false);
 
-  async function submitListing(data) {
+  async function submitListing(data, isEditing, listingId) {
     console.log(data);
     setSubmitLoading(true);
 
@@ -35,7 +37,7 @@ export function useSubmitListing() {
       return;
     }
 
-    if (data.images.length < 1 || data.images.length > 6) {
+    if (!isEditing && (data.images?.length < 1 || data.images?.length > 6)) {
       throwCustomError('You cannot submit a listing without images or with more than 6 images.');
       return;
     }
@@ -48,7 +50,7 @@ export function useSubmitListing() {
       geolocation.lat = resp_data.results[0]?.geometry.location.lat || 0;
       geolocation.lng = resp_data.results[0]?.geometry.location.lng || 0;
 
-      if (!resp_data.results.length) {
+      if (!resp_data.results?.length) {
         throwCustomError('The address is invalid. Please enter a valid address');
         return;
       }
@@ -57,21 +59,23 @@ export function useSubmitListing() {
       geolocation.lng = data.longitude;
     }
 
-    const imgUrls = await Promise.all(
-      [...data.images].map(image =>
-        storeImage(image)
-      )
-    ).catch(err => {
-      throwCustomError(err.message);
-      return;
-    })
-
     const formDataCopy = {
       ...data,
       owner: auth.user.uid,
-      imgUrls,
       geolocation,
       created: serverTimestamp()
+    }
+
+    if (data.images) {
+      const imgUrls = await Promise.all(
+        [...data.images].map(image =>
+          storeImage(image)
+        )
+      ).catch(err => {
+        throwCustomError(err.message);
+        return;
+      })
+      formDataCopy.imgUrls = [...data.imgUrls, ...imgUrls];
     }
 
     delete formDataCopy.images;
@@ -79,9 +83,18 @@ export function useSubmitListing() {
     delete formDataCopy.longitude;
     !formDataCopy.offer && delete formDataCopy.offer;
 
-    const docRef = await addDoc(collection(db, 'listings'), formDataCopy);
-    showActionSuccess('Listing created');
-    navigate(`/category/${data.type}/${docRef.id}`);
+    let docRef;
+
+    if (isEditing && listingId) {
+      const listingRef = doc(db, "listings", listingId);
+      docRef = await updateDoc(listingRef, formDataCopy);
+      navigate(`/category/${data.type}/${listingId}`);
+    } else {
+      docRef = await addDoc(collection(db, 'listings'), formDataCopy);
+      navigate(`/category/${data.type}/${docRef.id}`);
+    }
+
+    showActionSuccess(isEditing ? 'Listing edited' : 'Listing created');
   }
 
   async function storeImage(image) {

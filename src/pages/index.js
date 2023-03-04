@@ -1,7 +1,8 @@
-export { Home } from './Home/Home';
+export { ForgotPassword } from './ForgotPassword/ForgotPassword';
+export { CreateListing } from './CreateListings/CreateListings';
+export { EditListing } from './EditListing/EditListing';
 export { Profile } from './Profile/Profile';
 export { SignIn } from './SignIn/SignIn';
 export { SignUp } from './SignUp/SignUp';
-export { ForgotPassword } from './ForgotPassword/ForgotPassword';
 export { Offers } from './Offers/Offers';
-export { CreateListing } from './CreateListings/CreateListings';
+export { Home } from './Home/Home';

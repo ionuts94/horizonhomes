@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Form, FullWidthButton, ListingItem } from 'components';
+import { Form, FullWidthButton, ListingItem, SquareSpinner } from 'components';
 import { Link, useNavigate } from 'react-router-dom';
 import { auth, db } from 'firebaseConfig';
 import { toast } from 'react-toastify';
@@ -11,10 +11,10 @@ import { useFetchListings } from 'hooks';
 export function Profile() {
   const navigate = useNavigate();
 
-  const [changeDetailState, setChangeDetailState] = useState('Edit');
-  const [inputsDisabled, setInputsDisabled] = useState(true);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [inputsDisabled, setInputsDisabled] = useState(true);
+  const [changeDetailState, setChangeDetailState] = useState('Edit');
   const [shouldUpdateListings, setShouldUpdateListings] = useState(1);
 
   const { listings, fetchLoading } = useFetchListings(shouldUpdateListings);
@@ -39,8 +39,6 @@ export function Profile() {
       setInputsDisabled(true);
     }
   }
-
-  console.log(shouldUpdateListings);
 
   async function onSubmitChangeDetails() {
     try {
@@ -76,6 +74,10 @@ export function Profile() {
 
   function onEdit(listingId) {
     navigate(`/edit-listing/${listingId}`);
+  }
+
+  if (fetchLoading) {
+    return <SquareSpinner />
   }
 
   return (

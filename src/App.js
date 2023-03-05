@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Home, Profile, SignIn, SignUp, ForgotPassword, Offers, CreateListing, EditListing } from "./pages";
+import { Home, Profile, SignIn, SignUp, ForgotPassword, Offers, CreateListing, EditListing, ListingDetail } from "./pages";
 import { Header, PrivateRoute, OwnerRoute } from "./components";
 import { ToastContainer } from 'react-toastify';
 
@@ -11,8 +11,16 @@ function App() {
     <Router>
       <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
 
+        {/* Public routes */}
+        <Route path="/" element={<Home />} />
+        <Route path="offers" element={<Offers />} />
+        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/category/:type/:listingId" element={<ListingDetail />} />
+
+        {/* Protected routes */}
         <Route path="/profile" element={<PrivateRoute />}>
           <Route path="/profile" element={<Profile />} />
         </Route>
@@ -25,10 +33,6 @@ function App() {
           <Route path="/edit-listing/:listingId" element={<EditListing />} />
         </Route>
 
-        <Route path="/sign-in" element={<SignIn />} />
-        <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="offers" element={<Offers />} />
       </Routes>
 
       <ToastContainer

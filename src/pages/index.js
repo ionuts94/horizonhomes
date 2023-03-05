@@ -1,5 +1,6 @@
 export { ForgotPassword } from './ForgotPassword/ForgotPassword';
 export { CreateListing } from './CreateListings/CreateListings';
+export { ListingDetail } from './ListingDetail/ListingDetail';
 export { EditListing } from './EditListing/EditListing';
 export { Profile } from './Profile/Profile';
 export { SignIn } from './SignIn/SignIn';

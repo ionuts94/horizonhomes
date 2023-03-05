@@ -75,6 +75,7 @@ export function useSubmitListing() {
         throwCustomError(err.message);
         return;
       })
+      data.imgUrls = data.imgUrls || [];
       formDataCopy.imgUrls = [...data.imgUrls, ...imgUrls];
     }
 

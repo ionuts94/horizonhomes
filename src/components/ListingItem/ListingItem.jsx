@@ -1,8 +1,8 @@
-import React from 'react';
 import Moment from 'react-moment';
 import { Link } from 'react-router-dom';
 import { MdLocationOn, MdEdit } from 'react-icons/md';
 import { FaTrash } from 'react-icons/fa';
+import { formatToCurrency } from 'utils';
 
 export function ListingItem({ listing, id, onEdit, onDelete }) {
   return (
@@ -35,11 +35,7 @@ export function ListingItem({ listing, id, onEdit, onDelete }) {
             {listing.name}
           </p>
           <p className='text-[#457b9d] mt-2 font-semibold'>$
-            {(listing.offer
-              ? listing.discountedPrice
-              : listing.price)
-              .toString()
-              .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+            {formatToCurrency(listing.offer ? listing.discountedPrice : listing.price)}
             {listing.type === 'rent' && " / month"}
           </p>
           <div className='flex items-center mt-[10px] space-x-3'>

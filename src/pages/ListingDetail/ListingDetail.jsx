@@ -1,8 +1,9 @@
+import { useState } from 'react';
 import { FaShare, FaMapMarkerAlt, FaBed, FaBath, FaParking, FaChair } from 'react-icons/fa';
 import SwiperCore, { EffectFade, Autoplay, Navigation, Pagination } from 'swiper';
+import { FullWidthButton, SquareSpinner, Contact } from 'components';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useParams } from 'react-router-dom';
-import { SquareSpinner } from 'components';
 import { useFetchListing } from 'hooks';
 import { formatToCurrency } from 'utils';
 import { toast } from 'react-toastify';
@@ -13,6 +14,10 @@ export function ListingDetail() {
   const { listingId } = useParams();
   const { data, fetchLoading } = useFetchListing(listingId);
 
+  console.log(data);
+
+  const [showContactForm, setShowContactForm] = useState(false);
+
   const dataIsEmpty = Object.keys(data).length === 0;
 
   SwiperCore.use([Autoplay, Navigation, Pagination]);
@@ -20,6 +25,10 @@ export function ListingDetail() {
   function copyToClipboard() {
     navigator.clipboard.writeText(window.location.href);
     toast.success('Link coppied to clipboard', { autoClose: 1000 })
+  }
+
+  function doShowContactForm() {
+    setShowContactForm(true);
   }
 
   if (fetchLoading || dataIsEmpty) {
@@ -107,6 +116,17 @@ export function ListingDetail() {
               {data.furished ? 'Furnished' : 'Not furnished'}
             </li>
           </ul>
+
+          {!showContactForm &&
+            <FullWidthButton
+              className='mt-6'
+              onClick={doShowContactForm}
+            >
+              Contact Landlord
+            </FullWidthButton>
+          }
+
+          {showContactForm && <Contact />}
         </div>
         <div className='bg-blue-300 w-full h-[200px] lg:h-[400px] z-10 overflow-x-hidden'>
 

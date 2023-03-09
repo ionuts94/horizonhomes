@@ -5,4 +5,5 @@ export { PrivateRoute, OwnerRoute } from './PrivateRoutes/PrivateRoutes';
 export { PageWrapper } from './PageWrapper/PageWrapper';
 export { ListingItem } from './ListingItem/ListingItem';
 export { Listing } from './Listing/Listing';
+export { Contact } from './Contact/Contact';
 export { Form } from './Form/Form';

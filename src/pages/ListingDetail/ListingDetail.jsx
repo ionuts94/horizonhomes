@@ -150,7 +150,7 @@ export function ListingDetail() {
             />
             <Marker position={[data.geolocation.lat, data.geolocation.lng]}>
               <Popup>
-                A pretty CSS3 popup. <br /> Easily customizable.
+                {data.address}
               </Popup>
             </Marker>
           </MapContainer>

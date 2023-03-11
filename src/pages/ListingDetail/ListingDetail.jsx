@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { FaShare, FaMapMarkerAlt, FaBed, FaBath, FaParking, FaChair } from 'react-icons/fa';
 import SwiperCore, { EffectFade, Autoplay, Navigation, Pagination } from 'swiper';
 import { FullWidthButton, SquareSpinner, Contact } from 'components';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useParams } from 'react-router-dom';
 import { useFetchListing } from 'hooks';
@@ -117,7 +118,7 @@ export function ListingDetail() {
             </li>
           </ul>
 
-          {!showContactForm &&
+          {/* {!showContactForm &&
             <FullWidthButton
               className='mt-6'
               onClick={doShowContactForm}
@@ -126,10 +127,33 @@ export function ListingDetail() {
             </FullWidthButton>
           }
 
-          {showContactForm && <Contact />}
+          {showContactForm &&
+            <Contact
+              ownerId={data.owner}
+              listing={data}
+            />
+          } */}
         </div>
-        <div className='bg-blue-300 w-full h-[200px] lg:h-[400px] z-10 overflow-x-hidden'>
-
+        <div className='w-full h-[200px] mt-6 lg:h-[400px] md:mt-0 md:ml-2 z-10 overflow-x-hidden'>
+          <MapContainer
+            center={[data.geolocation.lat, data.geolocation.lng]}
+            scrollWheelZoom={true}
+            zoom={13}
+            style={{
+              height: '100%',
+              width: '100%'
+            }}
+          >
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <Marker position={[data.geolocation.lat, data.geolocation.lng]}>
+              <Popup>
+                A pretty CSS3 popup. <br /> Easily customizable.
+              </Popup>
+            </Marker>
+          </MapContainer>
         </div>
       </div>
     </main>

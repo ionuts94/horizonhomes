@@ -6,3 +6,4 @@ export { useAuthState } from './useAuthState';
 export { useSubmitListing } from './useSubmitListing';
 export { useFetchListings } from './useFetchListings';
 export { useFetchListing } from './useFetchListing';
+export { useFetchOwner } from './useFetchOwner';

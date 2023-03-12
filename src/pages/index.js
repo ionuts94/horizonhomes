@@ -6,4 +6,6 @@ export { Profile } from './Profile/Profile';
 export { SignIn } from './SignIn/SignIn';
 export { SignUp } from './SignUp/SignUp';
 export { Offers } from './Offers/Offers';
+export { Rents } from './Rents/Rents';
+export { Sales } from './Sales/Sales';
 export { Home } from './Home/Home';

@@ -22,7 +22,8 @@ export function Home() {
     for (let listing of listings) {
       if (listing.data.offer && offers.length < 4) {
         offers.push(listing);
-      } else if (listing.data.type === 'rent' && forRent.length < 4) {
+      }
+      if (listing.data.type === 'rent' && forRent.length < 4) {
         forRent.push(listing);
       } else if (forSale.length < 4) {
         forSale.push(listing);
@@ -64,7 +65,8 @@ export function Home() {
         <HomeSection
           listings={listingsPerSection.forRent}
           title='Places for rent'
-          subtitle='View more...'
+          subtitle='View more places for rent'
+          link='/for-rent'
         />
       </div>
 
@@ -72,7 +74,8 @@ export function Home() {
         <HomeSection
           listings={listingsPerSection.forSale}
           title='Places for sale'
-          subtitle='View more...'
+          subtitle='View more places for sale'
+          link='/for-sale'
         />
       </div>
     </>

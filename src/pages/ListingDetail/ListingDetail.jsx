@@ -49,7 +49,7 @@ export function ListingDetail() {
         {data?.imgUrls.map((url, index) => (
           <SwiperSlide key={index}>
             <div
-              className='relative w-full overflow-hidden h-[300px]'
+              className='relative w-full overflow-hidden h-[300px] md:h-[450px]'
               style={{ background: `url(${url}) center no-repeat`, backgroundSize: 'cover' }}>
 
             </div>
@@ -67,7 +67,7 @@ export function ListingDetail() {
 
       <div className='flex flex-col md:flex-row bg-white max-w-6xl 
       lg:mx-auto p-4 rounded-lg shadow-lg lg:space-x-5'>
-        <div className='w-full h-[200px] lg:h-[400px]'>
+        <div className='w-full h-fit lg:h-[400px]'>
           <p className='text-2xl font-bold mb-3 text-blue-900'>
             {data.name} - ${formatToCurrency(data.offer ? data.discountedPrice : data.price)}
             {data.type === 'rent' && ' / month'}
@@ -114,7 +114,7 @@ export function ListingDetail() {
 
             <li className='flex items-center gap-2 whitespace-nowrap'>
               <FaChair className='text-lg' />
-              {data.furished ? 'Furnished' : 'Not furnished'}
+              {data.furnished ? 'Furnished' : 'Not furnished'}
             </li>
           </ul>
 
@@ -134,7 +134,7 @@ export function ListingDetail() {
             />
           } */}
         </div>
-        <div className='w-full h-[200px] mt-6 lg:h-[400px] md:mt-0 md:ml-2 z-10 overflow-x-hidden'>
+        <div className='w-full h-[200px] mt-[200px] lg:h-[400px] md:mt-0 md:ml-2 z-10 overflow-x-hidden'>
           <MapContainer
             center={[data.geolocation.lat, data.geolocation.lng]}
             scrollWheelZoom={true}

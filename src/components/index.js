@@ -2,6 +2,7 @@ export { Header } from './Header/Header';
 export { FullWidthButton, SignInButton, SignUpButton, SignWithGoogleButton, ResetPasswordButton, ListingFormButton } from './Buttons/FullWidthButton';
 export { PrivateRoute, OwnerRoute } from './PrivateRoutes/PrivateRoutes';
 export { Spinner, SquareSpinner } from './Spinner/Spinner';
+export { CategoryPage } from './CategoryPage/CategoryPage';
 export { PageWrapper } from './PageWrapper/PageWrapper';
 export { ListingItem } from './ListingItem/ListingItem';
 export { HomeSection } from './HomeSection/HomeSection';

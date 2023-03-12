@@ -24,7 +24,7 @@ export function Slider({ listings }) {
           onClick={() => navigate(`/category/${listing.data.type}/${listing.id}`)}
         >
           <div
-            className='w-full h-[300px] bg-cover bg-center bg-no-repeat overflow-hidden relative'
+            className='w-full h-[300px] md:h-[450px] bg-cover bg-center bg-no-repeat overflow-hidden relative'
             style={{ backgroundImage: `url(${listing.data.imgUrls[0]})` }}
           >
             <p className='text-[#f1faee] absolute left-1 top-4 font-medium 

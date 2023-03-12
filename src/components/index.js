@@ -4,6 +4,7 @@ export { PrivateRoute, OwnerRoute } from './PrivateRoutes/PrivateRoutes';
 export { Spinner, SquareSpinner } from './Spinner/Spinner';
 export { PageWrapper } from './PageWrapper/PageWrapper';
 export { ListingItem } from './ListingItem/ListingItem';
+export { HomeSection } from './HomeSection/HomeSection';
 export { Listing } from './Listing/Listing';
 export { Contact } from './Contact/Contact';
 export { Slider } from './Slider/Slider';

@@ -4,7 +4,7 @@ import { db } from 'firebaseConfig';
 import { useAuthState } from './useAuthState';
 import { toast } from 'react-toastify';
 
-export function useFetchListings({ shouldUpdateListings, fetchAll }) {
+export function useFetchListings({ shouldUpdateListings = false, fetchAll }) {
   const auth = useAuthState();
   const [fetchLoading, setFetchLoading] = useState();
   const [listings, setListings] = useState([]);
@@ -51,7 +51,7 @@ export function useFetchListings({ shouldUpdateListings, fetchAll }) {
 
     try {
       const listingsCollectionRef = collection(db, 'listings');
-      const q = query(listingsCollectionRef, orderBy('created', 'desc'), limit(5));
+      const q = query(listingsCollectionRef, orderBy('created', 'desc'));
       const querySnap = await getDocs(q);
       const listingsCopy = [];
 

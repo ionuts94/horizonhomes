@@ -17,7 +17,7 @@ export function Profile() {
   const [changeDetailState, setChangeDetailState] = useState('Edit');
   const [shouldUpdateListings, setShouldUpdateListings] = useState(1);
 
-  const { listings, fetchLoading } = useFetchListings(shouldUpdateListings);
+  const { listings, fetchLoading } = useFetchListings({ shouldUpdateListings });
 
   function logOut() {
     auth.signOut();

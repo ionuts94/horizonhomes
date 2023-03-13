@@ -9,7 +9,9 @@ export function Spinner({ size = 'sm', color = 'white' }) {
   }
 
   return (
-    <div className={`animate-spin ${sizes[size]} rounded-full border-[3px] border-t-${color} border-l-${color} border-r-${color} border-b-transparent`}></div>
+    <div data-testid='spinner' className={`animate-spin ${sizes[size]} rounded-full border-[3px] 
+    border-t-${color} border-l-${color} border-r-${color} border-b-transparent`}>
+    </div>
   )
 }
 
